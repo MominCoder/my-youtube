@@ -30,7 +30,7 @@ export const LeftSideBar = () => {
     [<BiNews size={20} />, "News"],
     [<PiLightbulbFilamentLight size={20} />, "Learning"],
   ];
-  const sub = [
+  const subscribed = [
     {
       src: "https://yt3.googleusercontent.com/ytc/AOPolaSj48pypV9ilqNUztYjQ8Q760NYCAw3w1LwoWbJYQ=s176-c-k-c0x00ffffff-no-rj",
       profileId: "UC3N9i_KvKZYP4F84FPIzgPQ",
@@ -71,23 +71,23 @@ export const LeftSideBar = () => {
       <ListMaker list={mainTags} />
       <h1 className="px-4 py-2 mt-2 font-bold self-start">Explore</h1>
       <ListMakerExplore list={explore} />
-      <h1 className="px-4 py-2 mt-2 font-bold self-start">Popular </h1>
-      <SubListMaker list={sub} />
+      <h1 className="px-4 py-2 mt-2 font-bold self-start">Subscriptions </h1>
+      <SubListMaker list={subscribed} />
       <h1 className="px-4 py-2 mt-2 font-bold self-start">More from YouTube</h1>
       <ListMakerLinks list={moreFromYoutube} />
       <h1 className="px-4 py-2 mt-2 font-bold self-start">About Us</h1>
       <section className="flex mt-4 justify-between mb-2 gap-4 self-start px-4">
-        <Link to="https://www.linkedin.com/in/yuvraj1905/" target="_blank">
+        <Link to="https://www.linkedin.com/in/muzammil-momin-57b158173" target="_blank">
           <FaLinkedin size={20} />
         </Link>
-        <Link to="https://twitter.com/yuvrajt1905" target="_blank">
+        <Link to="#" target="_blank">
           <FaTwitter size={20} />
         </Link>
-        <Link to="https://github.com/yuvraj1905" target="_blank">
+        <Link to="https://github.com/MominCoder/" target="_blank">
           <FaGithub size={20} />
         </Link>
         <Link
-          to="https://personal-portfolio-neogcamp.netlify.app/"
+          to="#"
           target="_blank"
         >
           <TfiWorld size={20} />
@@ -97,7 +97,7 @@ export const LeftSideBar = () => {
         Note: This app is still under development. Please let me know if you
         find bugs out here.{" "}
       </small>
-      <small className="px-4 py-1 self-start">© Yuvraj Kumar </small>
+      <small className="px-4 py-1 self-start">© Muzammil Momin </small>
     </div>
   ) : (
     <div className="w-[8%] text-white pl-5 py-2 min-h-[92vh] max-h-[92vh] fixed flex items-center flex-col overflow-auto scrollBar gap-4 ">

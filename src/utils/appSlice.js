@@ -10,8 +10,8 @@ const appSlice = createSlice({
     toggle: (state) => {
       state.sideBarOpen = !state.sideBarOpen;
     },
+    
     toggleForWatchPage: (state, { payload }) => {
-      console.log(payload, "payload");
       state.sideBarOpen = payload;
     },
 

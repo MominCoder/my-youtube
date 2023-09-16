@@ -1,45 +1,35 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { CiMenuKebab } from "react-icons/ci";
+import { RxCross1 } from "react-icons/rx";
+import { FaShare } from "react-icons/fa";
+import { MdOutlineWatchLater } from "react-icons/md";
+import { AiOutlineDislike } from "react-icons/ai";
+import toast from "react-hot-toast";
+import { PROFILE_PICTURE_FETCHER } from "../utils/apiCalls";
+
 import {
   DurationCalculator,
   TimeCounter,
   ViewsCounter,
 } from "../utils/CalculatorFunctions";
-import { CiMenuKebab } from "react-icons/ci";
-import { RxCross1 } from "react-icons/rx";
-import { FaShare } from "react-icons/fa";
-import { MdOutlineWatchLater } from "react-icons/md";
-import { PROFILE_PICTURE_FETCHER } from "../utils/apiCalls";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+
 import {
   addToHistory,
   addToWatchLaterVideos,
   removeFromLikedVideos,
   removeFromWatchLaterVideos,
 } from "../utils/librarySlice";
-import { AiOutlineDislike } from "react-icons/ai";
-import toast, { Toaster } from "react-hot-toast";
 
 const VideoCard = ({ data, searchFeedVideo, likedVideosCard, relatedCard }) => {
   const { contentDetails, snippet, statistics, id } = data;
-  // console.log(data);
   const watchLater = useSelector((store) => store.library.watchLater);
   const isVideoSetToWatchLater = watchLater?.find((vid) => vid.id === id);
-  const {
-    categoryId,
-    channelId,
-    channelTitle,
-    publishedAt,
-    thumbnails: {
-      high: { url, height, width },
-    },
-    tags,
-    title,
-    description,
-  } = snippet;
+  const { channelId, channelTitle, publishedAt, thumbnails: { high: { url }}, title, description } = snippet;
   const { duration } = contentDetails;
   const [profilePicture, setProfilePicture] = useState("");
-  const { commentCount, favoriteCount, likeCount, viewCount } = statistics;
+  const { viewCount } = statistics;
 
   const [showOptionBtn, setShowOptionBtn] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
@@ -51,6 +41,7 @@ const VideoCard = ({ data, searchFeedVideo, likedVideosCard, relatedCard }) => {
     }
     temp();
   }, [title]);
+  
   const sideBarOpen = useSelector((store) => store?.app?.sideBarOpen);
   let widthString = sideBarOpen ? "w-[30%]" : "w-[23%]";
   let heightString = searchFeedVideo ? "h-[25vh]" : "h-[46vh]";

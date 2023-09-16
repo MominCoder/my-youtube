@@ -1,10 +1,10 @@
 import React from "react";
 import { LeftSideBar } from "../components/LeftSideBar";
 import { useDispatch, useSelector } from "react-redux";
-import VideoCard from "../components/VideoCard";
 import { AiOutlineDelete } from "react-icons/ai";
+import toast from "react-hot-toast";
+import VideoCard from "../components/VideoCard";
 import { clearHistory } from "../utils/librarySlice";
-import toast, { Toaster } from "react-hot-toast";
 
 const History = () => {
   const history = useSelector((store) => store.library.history);

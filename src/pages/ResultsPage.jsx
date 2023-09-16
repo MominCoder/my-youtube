@@ -24,6 +24,7 @@ const ResultsPage = () => {
       console.log(e);
     }
   };
+
   const moreVideosFetcher = async (token) => {
     try {
       const res = await fetchSearchQueryAPI(query, token);
@@ -61,6 +62,7 @@ const ResultsPage = () => {
   const classNameString = !sideBarOpen
     ? ` w-[92%] ml-[8%] `
     : ` w-[85%] ml-[15%] `;
+    
   return (
     <div className="w-[100%] box-border flex bg-black relative mt-[8vh]">
       <LeftSideBar />

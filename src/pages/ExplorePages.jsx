@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
+
 import {
   fetchSearchQueryAPI,
   getAllVideos,
   moreVideosFetcherAPI,
 } from "../utils/apiCalls";
+
 import VideoCard from "../components/VideoCard";
-import { useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
 import { LeftSideBar } from "../components/LeftSideBar";
 import Error from "../components/Error";
 
@@ -14,10 +16,10 @@ export const Explore = () => {
   const sideBarOpen = useSelector((store) => store.app.sideBarOpen);
   const [searchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("sq"));
-  console.log(query);
   const [data, setData] = useState([]);
   const [pages, setPages] = useState(1);
   const [nextPageToken, setNextPageToken] = useState("");
+
   const getVideos = async (queryy = query) => {
     try {
       const res =
@@ -30,14 +32,16 @@ export const Explore = () => {
       console.log(e);
     }
   };
+
   const moreVideosFetcher = async (token) => {
     const res =
-      query == "Trending"
+      query === "Trending"
         ? await moreVideosFetcherAPI(token)
         : await fetchSearchQueryAPI(query, token);
     setNextPageToken(res?.nextPageToken);
     setData([...data, ...res?.items]);
   };
+  
   useEffect(() => {
     pages > 1 && moreVideosFetcher(nextPageToken);
   }, [pages]);

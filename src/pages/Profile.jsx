@@ -16,6 +16,7 @@ export const Profile = () => {
   const [data, setData] = useState([]);
   const [pages, setPages] = useState(1);
   const [nextPageToken, setNextPageToken] = useState("");
+
   const getVideos = async (channel_id = channelId) => {
     try {
       const res = await fetch_channel(channel_id);
@@ -36,6 +37,7 @@ export const Profile = () => {
     res && setNextPageToken(res?.[1]);
     res && setData([...data, ...res?.[0]?.items]);
   };
+
   useEffect(() => {
     pages > 1 && moreVideosFetcher(nextPageToken);
   }, [pages]);
@@ -63,6 +65,7 @@ export const Profile = () => {
   const classNameString = !sideBarOpen
     ? ` w-[92%] ml-[8%] `
     : ` w-[85%] ml-[15%] `;
+    
   return (
     <div className="w-[100%] box-border flex bg-black relative mt-[8vh]">
       <LeftSideBar />

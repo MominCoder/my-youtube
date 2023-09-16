@@ -1,8 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
-import Body from "./pages/Body";
-import Header from "./components/Header";
+import { Toaster } from "react-hot-toast";
 import store from "./utils/store";
+import Header from "./components/Header";
+import Body from "./pages/Body";
 import WatchPage from "./pages/WatchPage";
 import ResultsPage from "./pages/ResultsPage";
 import { Profile } from "./pages/Profile";
@@ -10,7 +11,6 @@ import { Explore } from "./pages/ExplorePages";
 import Liked from "./pages/Liked";
 import WatchLater from "./pages/WatchLater";
 import History from "./pages/History";
-import { Toaster } from "react-hot-toast";
 
 function App() {
   return (

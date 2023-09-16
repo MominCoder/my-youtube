@@ -2,32 +2,35 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
+
 import {
   addToLikedVideos,
   addToWatchLaterVideos,
   removeFromLikedVideos,
   removeFromWatchLaterVideos,
 } from "../utils/librarySlice";
+
 import {
-  PROFILE_PICTURE_FETCHER,
   commentsFetcher,
   fetch_channel,
   getAllVideos,
   videoFetcherFromVideoId,
 } from "../utils/apiCalls";
+
 import {
   handleSearchInput,
-  toggle,
   toggleForWatchPage,
 } from "../utils/appSlice";
+
 import { LeftSideBar } from "../components/LeftSideBar";
-import { AiFillLike, AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
+import { AiFillLike, AiOutlineLike } from "react-icons/ai";
+
 import {
-  DurationCalculator,
   TimeCounter,
   ViewsCounter,
   formatSubscriberCount,
 } from "../utils/CalculatorFunctions";
+
 import { MdOutlineWatchLater, MdWatchLater } from "react-icons/md";
 import { FaShare } from "react-icons/fa";
 import { addComment } from "../utils/commentSlice";
@@ -35,7 +38,7 @@ import { randomCommentGenrrator, randomNameGenerate } from "../utils/helper";
 import SingleComment from "../components/SingleComment";
 import VideoCard from "../components/VideoCard";
 import RealCommentCard from "../components/RealCommentCard";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const WatchPage = () => {
   const [searchParams] = useSearchParams();

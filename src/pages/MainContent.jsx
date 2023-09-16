@@ -24,6 +24,7 @@ export const MainContent = () => {
   const [pages, setPages] = useState(1);
   const [nextPageToken, setNextPageToken] = useState("");
   const [tagResults, setTagsResults] = useState({ state: false });
+
   const getVideos = async () => {
     try {
       const res = tagResults.state
@@ -37,6 +38,7 @@ export const MainContent = () => {
       console.log(e);
     }
   };
+
   const moreVideosFetcher = async (token) => {
     const res = tagResults.state
       ? await videoFetchCatBased(tagResults.title, tagResults.id, nextPageToken)
@@ -63,6 +65,7 @@ export const MainContent = () => {
   }, []);
 
   const [tags, setTags] = useState([]);
+  
   useEffect(() => {
     async function tagsFetcher() {
       try {

@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { RxAvatar, RxCross1, RxHamburgerMenu } from "react-icons/rx";
 import { BsFillMicFill, BsSearch } from "react-icons/bs";
 import { AiOutlineSearch } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
 import { toggle } from "../utils/appSlice";
 import { searchSuggestionsAPI } from "../utils/apiCalls";
-import { useNavigate } from "react-router-dom";
 import { handleInputChange } from "../utils/searchSlice";
+
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
@@ -17,6 +18,7 @@ const Header = () => {
   const [inputSearch, setInputSearch] = useState("");
   const [searchSuggestions, setSearchSuggestions] = useState([]);
   const [suggestionsHidden, setSuggestionsHidden] = useState(true);
+
   const searchSuggestionsAPICallHandler = async (query) => {
     try {
       const res = await fetch(searchSuggestionsAPI + query);
@@ -29,6 +31,7 @@ const Header = () => {
   };
 
   const search = useRef(null);
+
   useEffect(() => {
     let timer;
     if (inputSearch.length === 0) {
@@ -50,18 +53,16 @@ const Header = () => {
 
   const navigate = useNavigate();
   const [speaking, setSpeaking] = useState(false);
-  const { transcript, resetTranscript, browserSupportsSpeechRecognition } =
-    useSpeechRecognition();
+  const { transcript, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
 
   const [showVoiceSearchPanel, setshowVoiceSearchPanel] = useState(false);
 
-  if (!browserSupportsSpeechRecognition) {
-    return null;
-  }
+  if (!browserSupportsSpeechRecognition) return null;
 
   const startListeningHandler = () => {
     setshowVoiceSearchPanel(true);
     setSpeaking(true);
+
     SpeechRecognition.startListening({
       continuous: true,
       language: "en-IN",
@@ -74,6 +75,7 @@ const Header = () => {
     setSpeaking(false);
     resetTranscript();
   };
+  
   const stopSpeakingHandler = () => {
     if (transcript?.length > 0) {
       navigate(`/results?search_query=${transcript.replaceAll(" ", "+")}`);

@@ -2,8 +2,8 @@ import React from "react";
 import { TimeCounter } from "../utils/CalculatorFunctions";
 
 const RealCommentCard = ({ data }) => {
-  const { authorDisplayName, authorProfileImageUrl, textDisplay, publishedAt } =
-    data;
+  const { authorDisplayName, authorProfileImageUrl, textDisplay, publishedAt } = data;
+  
   return (
     <div className="flex text-white w-full  h-[8vh] mb-4 gap-4 items-start">
       <img

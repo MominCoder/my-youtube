@@ -1,14 +1,6 @@
-import React from "react";
 import { useSelector } from "react-redux";
 
-const ShimmerCard = ({
-  height,
-  width,
-  data,
-  searchFeedVideo,
-  likedVideosCard,
-  relatedCard,
-}) => {
+const ShimmerCard = ({ searchFeedVideo, relatedCard }) => {
   const sideBarOpen = useSelector((store) => store?.app?.sideBarOpen);
 
   let widthString = sideBarOpen ? "w-[30%]" : "w-[23%]";
