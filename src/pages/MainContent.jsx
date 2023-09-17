@@ -46,6 +46,7 @@ export const MainContent = () => {
     setNextPageToken(res?.nextPageToken);
     setData([...data, ...res?.items]);
   };
+  
   useEffect(() => {
     pages === 1 ? getVideos() : moreVideosFetcher(nextPageToken);
   }, [pages]);

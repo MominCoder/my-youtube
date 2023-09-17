@@ -4,6 +4,11 @@ export const API_CALL_URL =
   "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=15&regionCode=IN&key=" +
   API_KEY;
 
+export const SHORTS_API =
+    "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&type=video&videoDuration=short&key=" +
+    API_KEY +
+    "&q=trendingshorts";
+
 export const videoFetcherFromVideoId = async (id) => {
   try {
     const res = await fetch(
@@ -27,6 +32,7 @@ export const PROFILE_PICTURE_FETCHER = async (channelId) => {
     const res = await fetch(
       `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelId}&key=${API_KEY}`
     );
+
     const data = await res?.json();
     const profilePictureUrl = data?.items[0]?.snippet?.thumbnails?.default?.url;
     return profilePictureUrl;
@@ -45,11 +51,14 @@ export const videoFetchCatBased = async (cat, vidId, nextPageToken = "") => {
       nextPageToken ? `&pageToken=${nextPageToken}` : ""
     }`
   );
+
   const data = await res?.json();
   let ids = [];
+
   for (const x of data?.items) {
     ids = [...ids, x?.id?.videoId];
   }
+
   const res2 = await fetch(
     `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&part=snippet%2CcontentDetails%2Cstatistics&id=${ids.join(
       ","
@@ -83,9 +92,10 @@ export const fetchSearchQueryAPI = async (query, nextPageToken = "") => {
       }
 `);
     const data = await res.json();
-    // console.log(data, "first");
+
     const nextPageId = data?.nextPageToken;
     let ids = [];
+
     for (const x of data?.items) {
       ids = [...ids, x?.id?.videoId];
     }
@@ -118,18 +128,22 @@ const channelFetcher = async (channelId) => {
 export const fetch_channel = async (channelId, nextPageToken) => {
   try {
     const channelData = !nextPageToken && (await channelFetcher(channelId));
+
     const videosList =
       await fetch(`https://www.googleapis.com/youtube/v3/search?part=id&channelId=${channelId}&maxResults=15&type=video&key=${API_KEY}${
         nextPageToken ? `&pageToken=${nextPageToken}` : ""
       }
 `);
+
     const videosListJson = await videosList.json();
     const nextRoundId = videosListJson?.nextPageToken;
 
     let ids = [];
+
     for (const x of videosListJson?.items) {
       ids = [...ids, x?.id?.videoId];
     }
+
     const videos = await fetch(
       `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&part=snippet%2CcontentDetails%2Cstatistics&id=${ids.join(
         ","
@@ -137,9 +151,9 @@ export const fetch_channel = async (channelId, nextPageToken) => {
     );
 
     const videosData = await videos.json();
-    if (nextPageToken) {
-      return [videosData, nextRoundId];
-    }
+
+    if (nextPageToken) return [videosData, nextRoundId];
+
     return [channelData, videosData, nextRoundId];
   } catch (e) {
     console.log(e);

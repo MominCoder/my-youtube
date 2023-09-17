@@ -1,22 +1,26 @@
+import { Link, NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { BiHomeAlt2, BiLike, BiNews, BiShoppingBag } from "react-icons/bi";
-import { AiOutlineClockCircle } from "react-icons/ai";
+import { AiOutlineClockCircle, AiOutlineYoutube } from "react-icons/ai";
 import { VscHistory } from "react-icons/vsc";
+import { TfiWorld } from "react-icons/tfi";
+import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { SiYoutubegaming } from "react-icons/si";
+import { ImFire } from "react-icons/im";
+import { GiClothes } from "react-icons/gi";
+
 import {
   PiFilmSlate,
   PiLightbulbFilamentLight,
   PiMusicNoteBold,
 } from "react-icons/pi";
-import { TfiWorld } from "react-icons/tfi";
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
-import { SiYoutubegaming } from "react-icons/si";
-import { ImFire } from "react-icons/im";
-import { Link, NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 export const LeftSideBar = () => {
   const sideBarOpen = useSelector((store) => store.app.sideBarOpen);
+
   const mainTags = [
     [<BiHomeAlt2 size={!sideBarOpen ? 25 : 20} />, "Home"],
+    [<AiOutlineYoutube size={!sideBarOpen ? 25 : 20} />, "Shorts"],
     [<BiLike size={!sideBarOpen ? 25 : 20} />, "Liked videos"],
     [<VscHistory size={!sideBarOpen ? 25 : 20} />, "History"],
     [<AiOutlineClockCircle size={!sideBarOpen ? 25 : 20} />, "Watch later"],
@@ -24,12 +28,16 @@ export const LeftSideBar = () => {
 
   const explore = [
     [<ImFire size={20} />, "Trending"],
+    [<BiShoppingBag size={20} />, "Shopping"],
     [<PiMusicNoteBold size={20} />, "Music"],
-    [<SiYoutubegaming size={20} />, "Gaming"],
     [<PiFilmSlate size={20} />, "Movies"],
+    [<SiYoutubegaming size={20} />, "Gaming"],
     [<BiNews size={20} />, "News"],
+    [<TfiWorld size={20} />, "Sports"],
     [<PiLightbulbFilamentLight size={20} />, "Learning"],
+    [<GiClothes size={20} />, "Fashion & Beauty"],
   ];
+
   const subscribed = [
     {
       src: "https://yt3.googleusercontent.com/ytc/AOPolaSj48pypV9ilqNUztYjQ8Q760NYCAw3w1LwoWbJYQ=s176-c-k-c0x00ffffff-no-rj",
@@ -122,6 +130,7 @@ const ListMaker = ({ list }) => {
   const navlinkStyler = ({ isActive }) => ({
     backgroundColor: isActive && "rgb(41 37 36)",
   });
+  
   return (
     <>
       <ul className="relative w-[100%] py-2 border-b border-stone-700 ">

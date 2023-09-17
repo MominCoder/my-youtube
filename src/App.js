@@ -11,6 +11,7 @@ import { Explore } from "./pages/ExplorePages";
 import Liked from "./pages/Liked";
 import WatchLater from "./pages/WatchLater";
 import History from "./pages/History";
+import { Shorts } from "./pages/Shorts.jsx";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Body />} />
           <Route path="/watch" element={<WatchPage />} />
+          <Route path="/shorts" element={<Shorts />} />
           <Route path="/results" element={<ResultsPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/explore" element={<Explore />} />
