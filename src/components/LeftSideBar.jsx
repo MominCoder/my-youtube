@@ -18,6 +18,10 @@ import {
 export const LeftSideBar = () => {
   const sideBarOpen = useSelector((store) => store.app.sideBarOpen);
 
+  const { theme } = useSelector((state) => state.theme);
+  const bgColor = theme ? ` bg-black ` : ` bg-white `;
+  const textColor = theme ? ` text-white ` : ` text-black `;
+
   const mainTags = [
     [<BiHomeAlt2 size={!sideBarOpen ? 25 : 20} />, "Home"],
     [<AiOutlineYoutube size={!sideBarOpen ? 25 : 20} />, "Shorts"],
@@ -75,7 +79,7 @@ export const LeftSideBar = () => {
   ];
 
   return sideBarOpen ? (
-    <div className="w-[15%] text-white px-2 bg-black py-2 min-h-[92vh] max-h-[92vh] z-50 fixed flex items-center flex-col overflow-auto scrollBar pt-0">
+    <div className={`w-[15%] ${textColor} px-2 ${bgColor} py-2 min-h-[92vh] max-h-[92vh] z-50 fixed flex items-center flex-col overflow-auto scrollBar pt-0`}>
       <ListMaker list={mainTags} />
       <h1 className="px-4 py-2 mt-2 font-bold self-start">Explore</h1>
       <ListMakerExplore list={explore} />
@@ -128,7 +132,7 @@ export const LeftSideBar = () => {
 
 const ListMaker = ({ list }) => {
   const navlinkStyler = ({ isActive }) => ({
-    backgroundColor: isActive && "rgb(41 37 36)",
+    backgroundColor: isActive && "rgba(0, 0, 0, 0.05)",
   });
   
   return (
@@ -136,7 +140,7 @@ const ListMaker = ({ list }) => {
       <ul className="relative w-[100%] py-2 border-b border-stone-700 ">
         {list.map((tag) => (
           <NavLink
-            className="hover:bg-stone-800 flex px-4 py-2 w-[100%] font-semibold mb-1 rounded-md  gap-6 items-center"
+            className="hover:bg-gray-100 flex px-4 py-2 w-[100%] font-semibold mb-1 rounded-md  gap-6 items-center"
             key={tag[1]}
             style={navlinkStyler}
             to={

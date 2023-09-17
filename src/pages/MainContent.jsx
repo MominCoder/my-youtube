@@ -25,6 +25,9 @@ export const MainContent = () => {
   const [nextPageToken, setNextPageToken] = useState("");
   const [tagResults, setTagsResults] = useState({ state: false });
 
+  const { theme } = useSelector((state) => state.theme);
+  const bgColor = theme ? ` bg-black ` : ` bg-white `;
+
   const getVideos = async () => {
     try {
       const res = tagResults.state
@@ -116,7 +119,7 @@ export const MainContent = () => {
   return (
     <>
       {data?.length < 1 || tags?.length < 1 ? (
-        <div className={`${classNameString} ${defaultClassNameString} `}>
+        <div className={`${classNameString} ${defaultClassNameString} ${bgColor}`}>
           <section className={homeSectionStyle}>
             {dummyArray.map((item, index) => (
               <ShimmerCard key={index} />
@@ -125,7 +128,7 @@ export const MainContent = () => {
         </div>
       ) : (
         <div
-          className={`${classNameString} ${defaultClassNameString} flex flex-col`}
+          className={`${classNameString} ${defaultClassNameString} ${bgColor} flex flex-col`}
         >
           {tags?.length > 1 && (
             <section className="w-[100%] flex gap-3 whitespace-nowrap overflow-x-scroll relative scrollBarHr pb-2">

@@ -11,6 +11,9 @@ import { handleInputChange } from "../utils/searchSlice";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+import ThemeSwitcher from "./ThemeSwitcher.jsx";
+
+// import ThemeSwitcher from "./ThemeSwitcher.jsx";
 
 const Header = () => {
   const searchQueries = useSelector((store) => store.search.searchQueries);
@@ -18,6 +21,10 @@ const Header = () => {
   const [inputSearch, setInputSearch] = useState("");
   const [searchSuggestions, setSearchSuggestions] = useState([]);
   const [suggestionsHidden, setSuggestionsHidden] = useState(true);
+
+  const { theme } = useSelector((state) => state.theme);
+  const bgColor = theme ? ` bg-black ` : ` bg-white `;
+  const textColor = theme ? ` text-white ` : ` text-black `;
 
   const searchSuggestionsAPICallHandler = async (query) => {
     try {
@@ -53,7 +60,8 @@ const Header = () => {
 
   const navigate = useNavigate();
   const [speaking, setSpeaking] = useState(false);
-  const { transcript, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
+  const { transcript, resetTranscript, browserSupportsSpeechRecognition } =
+    useSpeechRecognition();
 
   const [showVoiceSearchPanel, setshowVoiceSearchPanel] = useState(false);
 
@@ -75,7 +83,7 @@ const Header = () => {
     setSpeaking(false);
     resetTranscript();
   };
-  
+
   const stopSpeakingHandler = () => {
     if (transcript?.length > 0) {
       navigate(`/results?search_query=${transcript.replaceAll(" ", "+")}`);
@@ -94,7 +102,7 @@ const Header = () => {
     <>
       <section
         style={{ display: !showVoiceSearchPanel ? "none" : "" }}
-        className="h-[50vh] bg-stone-800 text-white w-[40vw] flex flex-col justify-between fixed left-[30%] top-2 z-[200] p-8"
+        className={`h-[50vh] ${bgColor} ${textColor} w-[40vw] flex flex-col justify-between fixed left-[30%] top-2 z-[200] p-8`}
       >
         <span className="flex justify-between ">
           <p className="font-bold text-xl">Tap on the mic to stop speaking..</p>
@@ -113,7 +121,7 @@ const Header = () => {
           className="self-center p-2 cursor-pointer hover:bg-stone-700 rounded-full"
         />
       </section>
-      <div className="flex w-screen bg-black text-white items-center justify-between px-6 py-2 fixed top-0 right-0 left-0 z-50 h-[8vh] pl-4 box-border">
+      <div className={`flex w-screen ${bgColor} ${textColor}  items-center justify-between px-6 py-2 fixed top-0 right-0 left-0 z-50 h-[8vh] pl-4 box-border`}>
         <section className="relative items-center flex w-[20%] justify-start flex-shrink-0 gap-4 flex-grow-0 h-[100%]">
           <span
             className="hover:bg-stone-800 rounded-full p-2"
@@ -136,7 +144,7 @@ const Header = () => {
                 ref={search}
                 placeholder="Search"
                 value={inputSearch}
-                className="text-white w-[90%] bg-black  border-none outline-none h-[100%] "
+                className={`w-[90%] ${bgColor} ${textColor} border-none outline-none h-[100%]`}
                 onChange={(e) => {
                   setInputSearch(e.target.value);
                 }}
@@ -169,15 +177,15 @@ const Header = () => {
                   searchHandler();
                 }
               }}
-              className=" flex-1 flex items-center bg-stone-900 rounded-r-full justify-center cursor-pointer "
+              className={`flex-1 flex items-center ${bgColor} rounded-r-full justify-center cursor-pointer`}
               title="Search"
             >
-              <BsSearch color="white" />
+              <BsSearch color={theme ? "white" : "black"} />
             </span>
             {/* -----------------------------------SEARCh SUGGESTIONS */}
             <section
               style={{ display: suggestionsHidden ? "none" : "" }}
-              className="absolute bg-stone-800 w-[100%] mt-[6vh] hover:cursor-pointer  rounded-md ml-[-1rem] flex flex-col"
+              className={`absolute w-[100%] mt-[6vh] hover:cursor-pointer rounded-md ml-[-1rem] flex flex-col`}
             >
               {searchSuggestions?.map((item) => (
                 <span
@@ -202,13 +210,14 @@ const Header = () => {
           </section>
           <span
             onClick={startListeningHandler}
-            className="flex-shrink-0 flex-wrap-0 flex w-[7%] bg-stone-800 items-center justify-center rounded-[50%] py-[0.7rem] cursor-pointer hover:bg-stone-700"
+            className={`flex-shrink-0 flex-wrap-0 flex w-[7%] items-center justify-center rounded-[50%] py-[0.7rem] cursor-pointer hover:${textColor} ${bgColor} `}
             title="Search with your voice"
           >
             <BsFillMicFill size={18} />
           </span>
         </section>
         <section className="flex-shrink-0 flex-wrap-0 flex w-[20%] h-[80%] relative justify-end pr-4">
+          <ThemeSwitcher />
           <RxAvatar size={30} />
         </section>
       </div>
